@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -S --noconfirm nvidia nvidia-utils nvidia-settings libva-mesa-driver libva-vdpau-driver libva-utils
+sudo pacman -S --noconfirm nvidia nvidia-utils nvidia-settings libva-mesa-driver libva-vdpau-driver libva-utils
 
   mkdir -p /etc/pacman.d/hooks
 echo "[Trigger]
@@ -15,7 +15,7 @@ Target=nvidia
 Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
-Exec=/etc/pacman.d/hooks/nvidia.hook
+Exec=/usr/bin/mkinitcpio -P' > /etc/pacman.d/hooks/nvidia.hook
 
 echo "blacklist nouveau" > /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 
