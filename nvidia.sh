@@ -9,15 +9,13 @@ Operation=Upgrade
 Operation=Remove
 Type=Package
 Target=nvidia
-Target=linux
 # Change the linux part above and in the Exec line if a different kernel is used
 
 [Action]
 Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
-NeedsTargets
-Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'" > /etc/pacman.d/hooks/nvidia.hook
+Exec=/etc/pacman.d/hooks/nvidia.hook
 
 echo "blacklist nouveau" > /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 
@@ -44,18 +42,14 @@ EndSection' > /etc/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
 echo "xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto" > $HOME/.xinitrc
 
-echo "
+echo "#!/bin/sh
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto" > /usr/share/sddm/scripts/Xsetup
 
-#chmod +x /etc/lightdm/display_setup.sh
-
-#echo "
-#[Seat:*]
-#display-setup-script=/etc/lightdm/display_setup.sh" >> /etc/lightdm/lightdm.conf
+chmod +x /usr/share/sddm/scripts/Xsetup
 
 echo "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder
 --enable-zero-copy
 --disable-features=UseChromeOSDirectVideoDecoder" > $HOME/.config/chrome-flags.conf
 
-
+sudo mkinitcpio -P
