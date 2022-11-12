@@ -2,7 +2,8 @@
 
 sudo pacman -S --noconfirm nvidia nvidia-utils nvidia-settings libva-mesa-driver libva-vdpau-driver libva-utils
 
-  mkdir -p /etc/pacman.d/hooks
+mkdir -p /etc/pacman.d/hooks
+
 echo "[Trigger]
 Operation=Install
 Operation=Upgrade
