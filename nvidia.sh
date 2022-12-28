@@ -16,7 +16,7 @@ Target=nvidia
 Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
-Exec=/usr/bin/mkinitcpio -P' > /etc/pacman.d/hooks/nvidia.hook
+Exec=/usr/bin/mkinitcpio -P" > /etc/pacman.d/hooks/nvidia.hook
 
 echo "blacklist nouveau" > /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 
